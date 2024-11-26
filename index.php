@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mockup</title>
   <!-- Bootstrap CSS -->
-  <link href="./utils/bootstrap5.3.0/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./utils/bootstrap_v5.1.0/bootstrap.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="./utils/datatables_v2.0.8/datatables.min.css">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="./utils/fontawesome-free_v5.15.4/css/all.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="./utils/sweetalert2_v11.11.1/sweetalert2.min.css">
 </head>
 
 <body>
@@ -90,7 +96,15 @@
   </div>
 
   <!-- Bootstrap JS -->
-  <script src="./utils/bootstrap5.3.0/bootstrap.bundle.min.js"></script>
+  <script src="./utils/bootstrap_v5.1.0/bootstrap.bundle.min.js"></script>
+  <!-- JQuery JS -->
+  <script src="./utils/jquery_v3.6.0/jquery.min.js"></script>
+  <!-- Bootstrap Menu -->
+  <script src="./utils/bootstrap-menu_v1.0.14/BootstrapMenu.min.js"></script>
+  <!-- DataTables -->
+  <script src="./utils/datatables_v2.0.8/datatables.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="./utils/sweetalert2_v11.11.1/sweetalert2.min.js"></script>
   <script>
     // Toggle del menú lateral
     const toggleButton = document.getElementById('menu-toggle');
