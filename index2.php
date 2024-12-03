@@ -51,143 +51,47 @@
       </ul>
     </div>
 
+    <!-- Contenido principal -->
     <div class="container-fluid p-4">
-      <button class="button bg-primary text-white">
-        <i class="fas fa-plus"></i>
-        Agregar
-      </button>
-      <table id="tblDatos" class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Sabritas</td>
-            <td>35.5</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(0)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Ruffles</td>
-            <td>35.5</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(1)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Coca-Cola</td>
-            <td>50</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(2)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Doritos</td>
-            <td>15</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(3)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Jarritos Manzana</td>
-            <td>22</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(4)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Oreo</td>
-            <td>18</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(5)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Principe de limon</td>
-            <td>19</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(6)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Canelitas</td>
-            <td>15</td>
-            <td>
-              <a href="#">
-                <i class="fas fa-pen"></i>
-                Modificar
-              </a>
-              <a href="javascript:eliminarRegistro(7)">
-                <i class="fas fa-trash"></i>
-                Eliminar
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h1 class="text-center">¡Bienvenido a condominios!</h1>
+      <!-- Carrusel -->
+      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Secciones: Quienes somos y Próximos eventos -->
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h3>¿Quiénes somos?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel purus et metus aliquet fermentum.</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Próximos Eventos</h3>
+          <div class="d-flex">
+            <img src="https://via.placeholder.com/150" class="img-thumbnail me-2" alt="Evento 1">
+            <img src="https://via.placeholder.com/150" class="img-thumbnail me-2" alt="Evento 2">
+            <img src="https://via.placeholder.com/150" class="img-thumbnail" alt="Evento 3">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -208,31 +112,6 @@
     toggleButton.addEventListener('click', () => {
       sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
     });
-  </script>
-  <script>
-    var tblDatos = new DataTable("#tblDatos");
-
-    function eliminarRegistro(ordinal) {
-      Swal.fire({
-        title: "¿Estás seguro?",
-        text: "No vas a poder salvar el registro eh!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminalo!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          //TODO: Eliminar el registro en la BD
-          tblDatos.row(ordinal).remove().draw();
-          Swal.fire({
-            title: "¡Eliminado!",
-            text: "El registro ha sido eliminado",
-            icon: "success"
-          });
-        }
-      });
-    }
   </script>
 </body>
 
