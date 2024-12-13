@@ -1,16 +1,45 @@
 <?php
-ini_set('display_errors', E_ALL); //Esta linea solo es para pruebas, no dejar en produccion
+ini_set("display_errors", E_ALL);
 
-$ctrl = null;
+require_once "config/Global.php";
 
-//Usar el controlador solicitado por el usuario
-if (isset($_POST["lstprod_agregar"])) {
-  require_once "_controller/CtrlMtoProducto.php";
-  $ctrl = new CtrlMtoProducto(-1); //-1 indica que vamos a agregar un registro
-} else {
-  require_once "_controller/CtrlListaProducto.php";
-  $ctrl = new CtrlListaProducto();
+$querystring = isset($_GET["querystring"]) ? $_GET["querystring"] : RUTA_DEFAULT;
+if (!str_ends_with($querystring, "/")) {
+	$querystring = $querystring . "/"; //le falta /, se la pongo
 }
 
-//Cargar la vista maestra
-include "_view/master.html";
+$peticion = explode("/", $querystring);
+
+$controlador = isset($peticion[0]) ? $peticion[0] : "";
+$accion = isset($peticion[1]) ? $peticion[1] : "";
+$id = isset($peticion[2]) ? $peticion[2] : "";
+
+switch ($controlador) {
+	case "producto":
+		if ($accion == "") {
+			require_once "_controller/CtrlListaProducto.php";
+			$ctrl = new CtrlListaProducto();
+		} else if ($accion == "agregar") {
+			require_once "_controller/CtrlMtoProducto.php";
+			$ctrl = new CtrlMtoProducto("INSERT");
+		} else if ($accion == "editar") {
+			if ($id) {
+				require_once "_controller/CtrlMtoProducto.php";
+				$ctrl = new CtrlMtoProducto("UPDATE", $id);
+				$registro = $ctrl->seleccionaRegistro($id);
+				if (count($registro) == 0) {
+					echo "<h1>404</h1><p>El recurso que estás buscando no existe</p>";
+					die();
+				}
+			} else {
+				echo "<h1>404</h1><p>ID no proporcionado</p>";
+				die();
+			}
+		}
+		break;
+	default:
+		echo "<h1>404</h1><p>Controlador inválido</p>";
+		die();
+}
+
+include "_view/master.php";

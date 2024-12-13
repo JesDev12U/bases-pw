@@ -4,18 +4,17 @@
       <h5>Nuevo</h5>
     </div>
     <div class="card-body">
-      <form>
+      <form id="formulario">
         <div class="mb-3">
+          <input type="hidden" name="peticion" value="<?php echo $this->peticion; ?>">
           <label for="id" class="form-label">id</label>
           <input
-          <?php echo $this->id > 0 ? "value=" . $this->id : ""; ?>
             type="text"
             class="form-control"
             id="id"
-            placeholder="Placeholder"
             name="id"
-            disabled
-          />
+            readonly
+            value="<?php echo $this->id !== null ? $this->id : "" ?>" />
         </div>
         <div class="mb-3">
           <label for="nombre" class="form-label">nombre</label>
@@ -24,9 +23,8 @@
             class="form-control"
             id="nombre"
             name="nombre"
-            placeholder="Placeholder"
-            required
-          />
+            value="<?php echo $this->nombre !== null ? $this->nombre : "" ?>"
+            required />
         </div>
         <div class="mb-3">
           <label for="precio" class="form-label">precio</label>
@@ -35,22 +33,30 @@
             class="form-control"
             id="precio"
             name="precio"
-            value="0"
+            value="<?php echo $this->precio !== null ? $this->precio : "0" ?>"
             min="0"
-            required
-          />
+            required />
         </div>
         <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-secondary me-2">Cancelar</button>
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-floppy-disk"></i>
             Guardar
           </button>
         </div>
       </form>
+      <input
+        type="button"
+        value="Regresar"
+        class="btn btn-danger"
+        id="btn-regresar" />
     </div>
     <div class="card-footer text-muted text-center">
       Rellene la información de cada campo.
     </div>
   </div>
 </div>
+<script>
+  document.getElementById("btn-regresar").addEventListener("click", () => {
+    location.href = "<?php echo SITE_URL ?>";
+  });
+</script>
