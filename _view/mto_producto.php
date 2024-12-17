@@ -57,6 +57,6 @@
 </div>
 <script>
   document.getElementById("btn-regresar").addEventListener("click", () => {
-    location.href = "<?php echo SITE_URL ?>";
+    location.href = "<?php echo SITE_URL . RUTA_DEFAULT ?>";
   });
 </script>

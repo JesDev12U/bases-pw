@@ -1,9 +1,10 @@
 <?php
+session_start();
 ini_set("display_errors", E_ALL);
 
 require_once "config/Global.php";
 
-$querystring = isset($_GET["querystring"]) ? $_GET["querystring"] : RUTA_DEFAULT;
+$querystring = isset($_GET["querystring"]) ? $_GET["querystring"] : "";
 if (!str_ends_with($querystring, "/")) {
 	$querystring = $querystring . "/"; //le falta /, se la pongo
 }
@@ -16,26 +17,39 @@ $id = isset($peticion[2]) ? $peticion[2] : "";
 
 switch ($controlador) {
 	case "producto":
-		if ($accion == "") {
-			require_once "_controller/CtrlListaProducto.php";
-			$ctrl = new CtrlListaProducto();
-		} else if ($accion == "agregar") {
-			require_once "_controller/CtrlMtoProducto.php";
-			$ctrl = new CtrlMtoProducto("INSERT");
-		} else if ($accion == "editar") {
-			if ($id) {
+		if (count($_SESSION) !== 0) {
+			if ($accion == "") {
+				require_once "_controller/CtrlListaProducto.php";
+				$ctrl = new CtrlListaProducto();
+			} else if ($accion == "agregar") {
 				require_once "_controller/CtrlMtoProducto.php";
-				$ctrl = new CtrlMtoProducto("UPDATE", $id);
-				$registro = $ctrl->seleccionaRegistro($id);
-				if (count($registro) == 0) {
-					echo "<h1>404</h1><p>El recurso que estás buscando no existe</p>";
+				$ctrl = new CtrlMtoProducto("INSERT");
+			} else if ($accion == "editar") {
+				if ($id) {
+					require_once "_controller/CtrlMtoProducto.php";
+					$ctrl = new CtrlMtoProducto("UPDATE", $id);
+					$registro = $ctrl->seleccionaRegistro($id);
+					if (count($registro) == 0) {
+						echo "<h1>404</h1><p>El recurso que estás buscando no existe</p>";
+						die();
+					}
+				} else {
+					echo "<h1>404</h1><p>ID no proporcionado</p>";
 					die();
 				}
-			} else {
-				echo "<h1>404</h1><p>ID no proporcionado</p>";
-				die();
 			}
+		} else {
+			require_once "_controller/CtrlPaginaPrincipal.php";
+			$ctrl = new CtrlPaginaPrincipal();
 		}
+		break;
+	case "":
+		require_once "_controller/CtrlPaginaPrincipal.php";
+		$ctrl = new CtrlPaginaPrincipal();
+		break;
+	case "login":
+		require_once "_controller/CtrlLogin.php";
+		$ctrl = new CtrlLogin();
 		break;
 	default:
 		echo "<h1>404</h1><p>Controlador inválido</p>";

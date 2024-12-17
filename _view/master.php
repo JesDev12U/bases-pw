@@ -53,6 +53,11 @@
             aria-label="Search" />
           <button class="btn btn-outline-primary" type="submit">🔍</button>
         </form>
+        <?php
+        if (count($_SESSION) !== 0)
+          echo '<button class="btn btn-danger" id="btn-logout">Cerrar sesión</button>';
+        else echo '<button class="btn btn-primary" id="btn-login">Iniciar sesión</button>';
+        ?>
       </div>
     </div>
   </nav>
@@ -61,9 +66,8 @@
     <!-- Menú lateral -->
     <div class="bg-light border-end" id="sidebar" style="width: 250px">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="#">Inicio</a></li>
-        <li class="list-group-item"><a href="#">Quienes somos</a></li>
-        <li class="list-group-item"><a href="#">Próximos eventos</a></li>
+        <li class="list-group-item"><a href="<?php echo SITE_URL ?>">Página principal</a></li>
+        <li class="list-group-item"><a href="#" id="link-productos">Productos</a></li>
       </ul>
     </div>
     <!-- Aqui va todo el contenido cambiante -->
@@ -82,12 +86,61 @@
   <!-- js/site.js -->
   <script src="<?php echo SITE_URL; ?>js/site.js"></script>
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (location.href.includes(`<?php echo RUTA_DEFAULT ?>`) && <?php echo count($_SESSION) ?> === 0)
+        location.href = `<?php echo SITE_URL ?>`;
+
+    });
+  </script>
+  <script>
     // Toggle del menú lateral
     const toggleButton = document.getElementById("menu-toggle");
     const sidebar = document.getElementById("sidebar");
     toggleButton.addEventListener("click", () => {
       sidebar.style.display =
         sidebar.style.display === "none" ? "block" : "none";
+    });
+  </script>
+  <script>
+    const $btnLogin = document.getElementById("btn-login");
+    const $btnLogout = document.getElementById("btn-logout");
+
+    if ($btnLogin) {
+      $btnLogin.addEventListener("click", (e) => {
+        e.preventDefault();
+        location.href = "<?php echo SITE_URL ?>login";
+      });
+    }
+
+    if ($btnLogout) {
+      $btnLogout.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+          await fetch("_controller/cerrarSesion.php");
+          location.href = "<?php echo SITE_URL ?>";
+        } catch (err) {
+          console.error(err);
+        }
+      });
+    }
+  </script>
+  <script>
+    document.getElementById("link-productos").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (<?php echo count($_SESSION) ?> === 0) {
+        Swal.fire({
+          title: "Opción bloqueada",
+          icon: "info",
+          html: `Necesitas <b>iniciar sesión</b> para ver este contenido`,
+          showCloseButton: true,
+          focusConfirm: false,
+          confirmButtonText: `
+    <i class="fa fa-thumbs-up"></i> Ok!
+  `,
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonAriaLabel: "Thumbs down"
+        });
+      } else location.href = `<?php echo SITE_URL . RUTA_DEFAULT ?>`;
     });
   </script>
   <script>
